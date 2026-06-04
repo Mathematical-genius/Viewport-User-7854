@@ -254,11 +254,24 @@
                                     <div class="w-7 h-7 rounded-lg bg-teal-100 text-teal-500 flex items-center justify-center"><i data-lucide="shield-alert" class="w-3.5 h-3.5"></i></div>
                                     <span class="font-bold text-xs">ยืนยันตัวตนก่อนขอสิทธิ์:</span>
                                 </div>
+								
                                 <label class="inline-flex items-center cursor-pointer">
                                     <input type="checkbox" id="admin-extra-security-toggle" class="sr-only peer" onchange="app.handleToggleExtraSecurity(this.checked)">
                                     <div class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-teal-500"></div>
                                 </label>
+                            </div>												
+							
+							<div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-gray-100 shadow-sm mt-2">
+                                <div class="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
+                                    <div class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-500 flex items-center justify-center"><i data-lucide="user-check" class="w-3.5 h-3.5"></i></div>
+                                    <span class="font-bold text-xs">ให้นักเรียนเข้าระบบเอง (ไม่รออนุมัติ):</span>
+                                </div>
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="admin-self-login-toggle" class="sr-only peer" onchange="app.handleToggleSelfLogin(this.checked)">
+                                    <div class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-500"></div>
+                                </label>
                             </div>
+							
 							<div class="flex items-center justify-between bg-yellow-50 p-2.5 rounded-xl border border-yellow-200 shadow-sm mt-2">
                                 <div class="flex items-center gap-2 text-xs sm:text-sm text-yellow-700">
                                     <div class="w-7 h-7 rounded-lg bg-yellow-200 text-yellow-600 flex items-center justify-center"><i data-lucide="swords" class="w-3.5 h-3.5"></i></div>
@@ -359,6 +372,21 @@
                 <main class="max-w-3xl mx-auto p-4" id="history-detail-content">
                     </main>
             </div>
+			
+			<!-- MODAL EDIT HISTORY STATUS -->
+    <div id="modal-history-status-edit" class="hidden fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-xs p-6 text-center">
+            <h3 class="text-lg font-bold text-slate-800 mb-1">แก้ไขสถานะย้อนหลัง</h3>
+            <p id="modal-history-status-name" class="text-sm text-slate-500 mb-4">...</p>
+            <div class="space-y-2">
+                <button onclick="app.handleSaveHistoryStatus('on_time')" class="w-full bg-green-100 text-green-700 py-2 rounded-lg text-sm font-bold hover:bg-green-200 border border-green-300">✅ มาเรียน (ตรงเวลา)</button>
+                <button onclick="app.handleSaveHistoryStatus('absent')" class="w-full bg-red-100 text-red-700 py-2 rounded-lg text-sm font-bold hover:bg-red-200 border border-red-300 mt-2">❌ ขาดเรียน</button>
+                <button onclick="app.handleSaveHistoryStatus('sick_leave')" class="w-full bg-blue-100 text-blue-700 py-2 rounded-lg text-sm font-bold hover:bg-blue-200 border border-blue-300 mt-2">🤒 ลาป่วย</button>
+                <button onclick="app.handleSaveHistoryStatus('personal_leave')" class="w-full bg-purple-100 text-purple-700 py-2 rounded-lg text-sm font-bold hover:bg-purple-200 border border-purple-300 mt-2">💼 ลากิจ</button>
+            </div>
+            <button onclick="document.getElementById('modal-history-status-edit').classList.add('hidden')" class="mt-4 text-slate-400 text-xs hover:text-slate-600">ปิดหน้าต่าง</button>
+        </div>
+    </div>
 
     <!-- MODAL RULES -->
     <div id="modal-rules" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
@@ -644,6 +672,12 @@
                 <div class="flex justify-between mb-1"><span class="text-slate-400">ชื่อ:</span> <span id="pending-name-display">...</span></div>
                 <div class="flex justify-between"><span class="text-slate-400">สถานะ:</span> <span class="text-amber-500 font-bold">Pending</span></div>
             </div>
+			
+			<button onclick="app.forceLogout()" class="w-full flex items-center justify-center gap-2 bg-white text-red-500 hover:bg-red-50 border border-red-200 py-3 rounded-xl font-bold transition-all shadow-sm active:scale-95">
+                <i data-lucide="log-out" class="w-4 h-4"></i> ล้างรหัส ยกเลิกคำขอ
+            </button>
+			
+			
         </div>
     </div>
 	
